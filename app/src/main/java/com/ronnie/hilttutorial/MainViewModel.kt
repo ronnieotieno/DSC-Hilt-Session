@@ -1,8 +1,11 @@
 package com.ronnie.hilttutorial
 
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MainViewModel : ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
-    suspend fun getPlayers() = Repository.getPlayers()
+    suspend fun getPlayers() = repository.getPlayers()
 }

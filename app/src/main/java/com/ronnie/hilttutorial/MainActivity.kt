@@ -11,19 +11,26 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.ronnie.hilttutorial.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
     private val adapter =
         PlayersAdapter { name: String -> snackBarClickedPlayer(name) }
+    @Inject
+    lateinit var names: Names
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         binding.allProductRecyclerView.adapter = adapter
+
+        Toast.makeText(this@MainActivity, names.getName(), Toast.LENGTH_SHORT).show()
 
         binding.allProductRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)

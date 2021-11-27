@@ -1,7 +1,7 @@
 package com.ronnie.hilttutorial
 
-object Repository {
-    private val api: PlayersApi = RetrofitClientProvider.retrofit.create(PlayersApi::class.java)
+import javax.inject.Inject
 
+class Repository @Inject constructor(private val api: PlayersApi) {
     suspend fun getPlayers() = api.getPlayers(60, 1)
 }
